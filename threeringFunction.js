@@ -478,14 +478,15 @@ var extra = 'blinewidth 3 all' + '\n' + 'drawframe no' + '\n' + 'asetticks x no'
 
   var d = 500;
   var n = 22;
-  var a = sqrt(2);
+  var a = (1.2);
   var f1 = 1;
   var f2 = 1;
   var bAndDSize = .9;
   var baseRingStart = radians(0);
-  var ringStart1 = radians(300);
-  var ringStart2 = radians(420);
-  var ringStart3 = radians(540);
+  var base = 60;
+  var ringStart1 = radians(base);
+  var ringStart2 = radians(base+120);
+  var ringStart3 = radians(base+240);
   var aToCAdd = radians(20);
 
 var ring1 = makeShape(d,n,a,f1,f2,bAndDSize,baseRingStart,ringStart1,aToCAdd);
