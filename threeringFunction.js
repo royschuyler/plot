@@ -120,8 +120,9 @@ function getFront (x,y,s){
       var hyp2 = Math.hypot(x[i+1], y[i+1]);
       var hyp3 = Math.hypot(x[i+2], y[i+2]);
       if(hyp1 < hyp2 && hyp2 > hyp3 && hyp2 > s){
-        obj.frontCount = i+1;
-        obj.backCount = x.length - obj.frontCount;
+        var frontAdd = i+1;
+        obj.frontCount = frontAdd;
+        obj.backCount = (x.length - obj.frontCount);
       }
     }
   }
@@ -255,7 +256,27 @@ var ringText = '';
       backCount: 0,
       xBack: [],
       yBack: [],
-    }
+    },
+    ac: {
+      axBack: [],
+      ayBack: [],
+      axFront: [],
+      ayFront: [],
+      cxBack: [],
+      cyBack: [],
+      cxFront: [],
+      cyFront: []
+      },
+    bd: {
+      bxBack: [],
+      byBack: [],
+      bxFront: [],
+      byFront: [],
+      dxBack: [],
+      dyBack: [],
+      dxFront: [],
+      dyFront: []
+     }
   }
 
 
@@ -350,12 +371,36 @@ var ringText = '';
   obj.c.yBack = separateC.yBack;
   obj.d.yFront = separateD.yFront;
   obj.d.yBack = separateD.yBack;
-  //console.log(obj)
+
+  //EQUALIZING AC AND BD FRONT AND BACK
+  obj.ac.axFront = equalOut(obj.a.xBack,obj.c.xBack,1).arr1;
+  obj.ac.cxFront = equalOut(obj.a.xBack,obj.c.xBack,1).arr2;
+  obj.ac.ayFront = equalOut(obj.a.yBack,obj.c.yBack,1).arr1;
+  obj.ac.cyFront = equalOut(obj.a.yBack,obj.c.yBack,1).arr2;
+
+  obj.ac.axBack = equalOut(obj.a.xFront,obj.c.xFront,1).arr1;
+  obj.ac.cxBack = equalOut(obj.a.xFront,obj.c.xFront,1).arr2;
+  obj.ac.ayBack = equalOut(obj.a.yFront,obj.c.yFront,1).arr1;
+  obj.ac.cyBack = equalOut(obj.a.yFront,obj.c.yFront,1).arr2;
+
+  obj.bd.bxFront = equalOut(obj.b.xBack,obj.d.xBack,.8).arr1;
+  obj.bd.dxFront = equalOut(obj.b.xBack,obj.d.xBack,.8).arr2;
+  obj.bd.byFront = equalOut(obj.b.yBack,obj.d.yBack,.8).arr1;
+  obj.bd.dyFront = equalOut(obj.b.yBack,obj.d.yBack,.8).arr2;
+
+  obj.bd.bxBack = equalOut(obj.b.xFront,obj.d.xFront,.8).arr1;
+  obj.bd.dxBack = equalOut(obj.b.xFront,obj.d.xFront,.8).arr2;
+  obj.bd.byBack = equalOut(obj.b.yFront,obj.d.yFront,.8).arr1;
+  obj.bd.dyBack = equalOut(obj.b.yFront,obj.d.yFront,.8).arr2;
+  console.log(obj);
+
+
+
 
 
 
 //   //*************PLOT STUFF************************************
-
+  //var finalCount = 0;
   //var buffer = '';
   var mainBack = obj.a.backCount; //frontCount because reversed
   var mainFront = obj.a.frontCount; //frontCount because reversed
@@ -410,26 +455,29 @@ var ringText = '';
      }
   }
 
-if(obj.a.x[obj.a.backCont]>obj.b.x[obj.b.backCont]){
-  plot('bd', obj.b.x,obj.d.y,obj.d.x,obj.d.y,'b',1);
-  plot('ac', obj.a.x,obj.a.y,obj.c.x,obj.c.y,'b',1);
+if(obj.a.x[50]<obj.b.x[50]){
+  plot('ac', obj.ac.axBack,obj.ac.ayBack,obj.ac.cxBack,obj.ac.cyBack,'b',1);
+  plot('bd', obj.bd.bxBack,obj.bd.byBack,obj.bd.dxBack,obj.bd.dyBack,'b',1);
+  plot('ac', obj.ac.axFront,obj.ac.ayFront,obj.ac.cxFront,obj.ac.cyFront,'b',1);
   plot('ab', obj.a.x,obj.a.y,obj.b.x,obj.b.y,'s',1);
-  //console.log('ab')
+//   //console.log('ab')
 } else{
-  plot('bd', obj.b.x,obj.d.y,obj.d.x,obj.d.y,'b',1);
-  plot('ac', obj.a.x,obj.a.y,obj.c.x,obj.c.y,'b',1);
+  plot('ac', obj.ac.axBack,obj.ac.ayBack,obj.ac.cxBack,obj.ac.cyBack,'b',1);
+  plot('bd', obj.bd.bxBack,obj.bd.byBack,obj.bd.dxBack,obj.bd.dyBack,'b',1);
+  plot('ac', obj.ac.axFront,obj.ac.ayFront,obj.ac.cxFront,obj.ac.cyFront,'b',1);
   plot('cd', obj.c.x,obj.c.y,obj.d.x,obj.d.y,'s',1);
   //console.log('cd')
 }
+
 
 var end = buffer + text
 return end
 }
 
-var extra = 'blinewidth 2 all' + '\n' + 'drawframe no' + '\n' + 'asetticks x no' + '\n' + 'asetticks y no' + '\n' + 'asetminticks x no' + '\n' + 'asetminticks y no' + '\n' +'framewidth 0' + '\n' + 'bstyle yes no no no no no no yes no no 0' + '\n' + 'margins 0 0 0 0' + '\n' + 'range x -1.2 1.2' + '\n' + 'range y -1.2 1.2';
+var extra = 'blinewidth 3 all' + '\n' + 'drawframe no' + '\n' + 'asetticks x no' + '\n' + 'asetticks y no' + '\n' + 'asetminticks x no' + '\n' + 'asetminticks y no' + '\n' +'framewidth 0' + '\n' + 'bstyle yes no no no no no no yes no no 0' + '\n' + 'margins 0 0 0 0' + '\n' + 'range x -1.2 1.2' + '\n' + 'range y -1.2 1.2';
 
-  var d = 1000;
-  var n = 15;
+  var d = 500;
+  var n = 22;
   var a = sqrt(2);
   var f1 = 1;
   var f2 = 1;
@@ -444,8 +492,11 @@ var ring1 = makeShape(d,n,a,f1,f2,bAndDSize,baseRingStart,ringStart1,aToCAdd);
 var ring2 = makeShape(d,n,a,f1,f2,bAndDSize,baseRingStart,ringStart2,aToCAdd);
 var ring3 = makeShape(d,n,a,f1,f2,bAndDSize,baseRingStart,ringStart3,aToCAdd);
 
-
+//var finish = ring1 + extra;
+//var finish = ring2 + extra;
+//var finish = ring3 + extra;
 var finish = ring1 + ring2 + ring3 + extra;
+
 console.log(finish);
 
 
