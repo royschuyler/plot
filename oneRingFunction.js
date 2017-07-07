@@ -439,10 +439,7 @@ var extra = 'blinewidth 2 all' + '\n' + 'drawframe no' + '\n' + 'asetticks x no'
   var aToCAdd = radians(20);
 
 var ring1 = makeShape(d,n,a,f1,f2,bAndDSize,baseRingStart,ringStart,aToCAdd);
-console.log(ring1);
 
 
-
-
-
-
+var finish = ring1 + extra;
+console.log(finish);
