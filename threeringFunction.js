@@ -496,7 +496,7 @@ var ring3 = makeShape(d,n,a,f1,f2,bAndDSize,baseRingStart,ringStart3,aToCAdd);
 //var finish = ring1 + extra;
 //var finish = ring2 + extra;
 //var finish = ring3 + extra;
-var finish = ring1 + ring2 + ring3 + extra;
+var finish = ring3 + ring2 + ring1 + extra;
 
 console.log(finish);
 
