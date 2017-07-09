@@ -261,7 +261,7 @@ function equalOut(arr1,arr2){
   var f2 = 1;
   var bAndDSize = .9;
   var baseRingStart = radians(0);
-  var ringStart = radians(300);
+  var ringStart = radians(160);
   var aToCAdd = radians(20);
 
   //*********************DERIVED*********************
